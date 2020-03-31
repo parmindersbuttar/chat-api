@@ -1,0 +1,52 @@
+<%- include header.ejs %>
+<%- include sidebar.ejs %>
+        <!-- ============ Body content start ============= -->
+        <div class="main-content-wrap sidenav-open d-flex flex-column">
+             <div class="breadcrumb">
+                <h1>List of Individuals</h1>
+            </div>
+            <div class="separator-breadcrumb border-top"></div>
+            <!-- end of row -->
+            <div class="row mb-4">
+                <div class="col-md-12 mb-4">
+                    <div class="card text-left">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="language_option_table" class="display table table-striped table-bordered" style="width:100%">
+                                  <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>fullName</th>
+                                            <th>email</th>
+                                            <th>address</th>
+                                            <th>zipcode</th>
+                                            <th>city</th>
+                                            <th>state</th>
+                                            <th>Donated Items</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <% result1 && result1.result.forEach(function(User){ %>
+                                        <tr>
+                                            <td><%= User.userId %></td>
+                                            <td><%= User.fullName %></td>
+                                            <td><%= User.email %></td>
+                                            <td><%= User.address %></td>
+                                            <td><%= User.zipcode %></td>
+                                            <td><%= User.city %></td>
+                                            <td><%= User.state %></td>
+                                            <td><%=result1.response[result1.result.indexOf(User)].count%></td>
+                                        </tr>
+                                        <% })%>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end of col -->
+
+            </div>
+            <!-- end of row -->
+<%- include footer.ejs %>

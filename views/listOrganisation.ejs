@@ -1,0 +1,91 @@
+<%- include header.ejs %>
+<%- include sidebar.ejs %>
+<!-- ============ Body content start ============= -->
+<div class="main-content-wrap sidenav-open d-flex flex-column">
+    <div class="breadcrumb">
+        <h1>List of Organizations</h1>
+    </div>
+    <div class="separator-breadcrumb border-top"></div>
+    <!-- end of row -->
+    <div class="row mb-4">
+        <div class="col-md-12 mb-4">
+            <div class="card text-left">
+                <div class="card-body">
+                    <div class="col-sm-12 text-right mb-4">
+                            <button id="exportCsv" class="btn btn-info btn-md">Download CSV file</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="language_option_table" class="display table table-striped table-bordered"
+                            style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>organisationName</th>
+                                    <th>missionStatement</th>
+                                    <th>organisationDescription</th>
+                                    <th>fullName</th>
+                                    <th>email</th>
+                                    <th>address</th>
+                                    <th>zipcode</th>
+                                    <th>city</th>
+                                    <th>state</th>
+                                    <th>Posted Listed</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% result1 && result1.result.forEach(function(User){ %>
+                                <tr>
+                                    <td><%= User.userId %></td>
+                                    <td><%= User['UserOrg.organisationName'] %></td>
+                                    <td><%= User['UserOrg.missionStatement'] %></td>
+                                    <td><%= User['UserOrg.organisationDescription'] %></td>
+                                    <td><%= User.fullName %></td>
+                                    <td><%= User.email %></td>
+                                    <td><%= User.address %></td>
+                                    <td><%= User.zipcode %></td>
+                                    <td><%= User.city %></td>
+                                    <td><%= User.state %></td>
+                                    <td><%=result1.response[result1.result.indexOf(User)].count%></td>
+                                </tr>
+                                <%})%>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end of col -->
+
+    </div>
+    <script type="text/javascript">
+        function download_csv(csv, filename) {
+            var csvFile;
+            var downloadLink;
+            csvFile = new Blob([csv], { type: "text/csv" });
+            downloadLink = document.createElement("a");
+            downloadLink.download = filename;
+            downloadLink.href = window.URL.createObjectURL(csvFile);
+            downloadLink.style.display = "none";
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+        }
+        function export_table_to_csv(html, filename) {
+            var csv = [];
+            var rows = document.querySelectorAll("table tr");
+            for (var i = 0; i < rows.length; i++) {
+                var row = [], cols = rows[i].querySelectorAll("td, th");
+                for (var j = 0; j < cols.length; j++)
+                    row.push(cols[j].innerText);
+                csv.push(row.join(","));
+            }
+            // Download CSV
+            download_csv(csv.join("\n"), filename);
+        }
+        document.getElementById("exportCsv").addEventListener("click", function () {
+            var html = document.querySelector("table").outerHTML;
+            export_table_to_csv(html, "table.csv");
+        });
+    </script>
+    <!-- end of row -->
+    <%- include footer.ejs %>

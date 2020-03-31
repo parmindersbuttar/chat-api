@@ -1,0 +1,43 @@
+<%- include header.ejs %>
+<%- include sidebar.ejs %>
+        <!-- ============ Body content start ============= -->
+        <div class="main-content-wrap sidenav-open d-flex flex-column">
+             <div class="breadcrumb">
+                <h1>List of Feedback</h1>
+            </div>
+            <div class="separator-breadcrumb border-top"></div>
+            <!-- end of row -->
+            <div class="row mb-4">
+                <div class="col-md-12 mb-4">
+                    <div class="card text-left">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="language_option_table" class="display table table-striped table-bordered" style="width:100%">
+                                  <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Feedback</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <% i = 1 %>
+                                            <% result.forEach(function(feedback){ %>
+                                        <tr>
+                                            <td><%= i %></td>
+                                            <td><%= feedback.feedbk.fullName %></td>
+                                            <td><%= feedback.feedbk.email %></td>
+                                            <td><%= feedback.feedback %></td>
+                                        </tr>
+                                        <% })%>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end of col -->
+            </div>
+            <!-- end of row -->
+<%- include footer.ejs %>

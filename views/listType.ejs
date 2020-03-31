@@ -1,0 +1,90 @@
+<%- include header.ejs %>
+<%- include sidebar.ejs %>
+<!-- ============ Body content start ============= -->
+<div class="main-content-wrap sidenav-open d-flex flex-column">
+    <div class="breadcrumb">
+        <h1>List of Organizations Type</h1>
+    </div>
+    <div class="separator-breadcrumb border-top"></div>
+    <!-- end of row -->
+    <div class="row mb-4">
+        <div class="col-md-12 mb-4">
+            <div class="card text-left">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="language_option_table" class="display table table-striped table-bordered"
+                            style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>organisationTypeName</th>
+                                    <th>organisationTypeDescription</th>
+                                    <th>Action</th>
+                                    <!-- <th>Action</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% i = 1 %>
+                                <% result.forEach(function(type){ %>
+
+                                <tr>
+                                    <td><%= i %></td>
+                                    <td><%= type.organisationTypeName %></td>
+                                    <td><%= type.organisationTypeDescription %></td>
+                                    <td>
+                                        <a href="listTypeEdit/<%= type.organisationTypeId %>"
+                                            class="text-success mr-2"><i
+                                                class="nav-icon i-Pen-2 font-weight-bold"></i></a>
+                                        <button type="button" title="<%= type.organisationTypeId%>"
+                                            class="text-danger mr-2 dropbtn"
+                                            style="background:transparent;border:0px;cursor: pointer"
+                                            data-toggle="modal" data-target="#exampleModalLong">
+                                            <i class="nav-icon i-Close-Window font-weight-bold"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <% i++ %>
+                                <% })%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Are you sure you want to delete this list.
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <form action="/admin/listType" method="post" novalidate>
+                            <input type="hidden" name="Id" class="hiddenValue" value="" />
+                            <button type="submit" class="btn btn-danger">Yes</button>
+                        </form>
+                        <!-- <a href="listTypeByDelete/" class="btn btn-danger">Yes</button> -->
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end of col -->
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.dropbtn').click(function () {
+                var title = $('.dropbtn').attr('title')
+                console.log(title,"title")
+                $('.hiddenValue').val(title);
+
+            })
+        })
+    </script>
+    <!-- end of row -->
+    <%- include footer.ejs %>
